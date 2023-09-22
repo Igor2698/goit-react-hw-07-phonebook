@@ -5,10 +5,18 @@ import Filter from '../Filter';
 import { useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors/selectors';
 import { selectVisibleContacts } from 'redux/selectors/selectors';
+import { fetchContacts } from 'redux/operations';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export const App = () => {
   const contacts = useSelector(selectContacts);
   const visibleContacts = useSelector(selectVisibleContacts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div>

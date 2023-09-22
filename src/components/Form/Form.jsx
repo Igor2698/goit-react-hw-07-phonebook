@@ -1,11 +1,9 @@
 import React from 'react';
-import { add } from 'redux/contactsSlice';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors/selectors';
 
-import { nanoid } from 'nanoid';
 import {
   StyledForm,
   Label,
@@ -14,6 +12,7 @@ import {
   InputContainer,
   ButtonForm,
 } from './Form.styled';
+import { addContact } from 'redux/operations';
 
 const formSchema = Yup.object().shape({
   name: Yup.string()
@@ -47,7 +46,7 @@ const MyForm = () => {
         ) {
           return alert('Phonebook already has this values');
         }
-        dispatch(add({ name, number, id: nanoid() }));
+        dispatch(addContact({ name, phone: number }));
         actions.resetForm();
       }}
     >

@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTask } from 'redux/contactsSlice';
 
 import {
   ContContactList,
@@ -9,22 +8,25 @@ import {
   ContListBtn,
 } from './ContactsList.styled';
 import { selectVisibleContacts } from 'redux/selectors/selectors';
+import { deleteContact } from 'redux/operations';
 const ContactsList = () => {
   const visibleContacts = useSelector(selectVisibleContacts);
 
   const dispatch = useDispatch();
-  console.log(visibleContacts);
 
   return (
     <ContContactList>
       <ContListUl>
-        {visibleContacts.map(({ id, name, number }) => (
+        {visibleContacts.map(({ id, name, phone }) => (
           <ContListItem key={id}>
             <ContListText>
-              {name}: <span className="number"> {number}</span>
+              {name}: <span className="number"> {phone}</span>
             </ContListText>
 
-            <ContListBtn type="button" onClick={() => dispatch(deleteTask(id))}>
+            <ContListBtn
+              type="button"
+              onClick={() => dispatch(deleteContact(id))}
+            >
               Delete
             </ContListBtn>
           </ContListItem>
